@@ -36,6 +36,7 @@ class SuperTestCase(abc.ABC):
     def run(self):
         self.setup()
         self.main_test()
+        self.teardown()
 
     @abc.abstractmethod
     def setup(self):
