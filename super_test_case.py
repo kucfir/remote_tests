@@ -22,7 +22,7 @@ class TestCaseReport:
 
 
 class SuperTestCase(abc.ABC):
-    description = None
+    test_name = None
 
     def __init__(self, report):
         self.__report = report

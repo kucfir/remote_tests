@@ -5,13 +5,13 @@ from logger import Logger
 
 
 class TestCase(SuperTestCase):
-    description = "TC_01"
+    test_name = "TC_01"
     log_file_name = "TC_01_logs"
 
     def __init__(self, report):
         SuperTestCase.__init__(self, report)
         self.ssh = SshConnection(ssh_settings=SshCommunicationChannel())
-        self.logger = Logger(self.description, self.log_file_name)
+        self.logger = Logger(self.test_name, self.log_file_name)
         self.total_memory = 0
         self.used_memory = 0
         self.free_memory = 0
