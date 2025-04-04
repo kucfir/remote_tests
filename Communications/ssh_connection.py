@@ -17,7 +17,7 @@ class SshConnection:
         self.socket.connect((self.ip, self.port))
         self.transport = paramiko.Transport(self.socket)
         self.transport.connect(username=self.username, password=self.password)
-        self.shell = self.transport.open_session()
+        self.shell = None
         self.receive_buffer = bytearray()
 
     @staticmethod
@@ -32,7 +32,8 @@ class SshConnection:
         self.socket.close()
 
     def snd_cmd(self, command):
-        ssh = self.create_ssh_channel()
-        ssh.shell.exec_command(command)
-        self.receive_buffer = ssh.shell.recv(10 * 1024)
+        self.shell = self.transport.open_session()
+        self.shell.exec_command(command)
+        self.receive_buffer = self.shell.recv(10 * 1024)
+        self.shell.close()
         return self.receive_buffer.decode("ascii", errors="ignore")
